@@ -52,7 +52,7 @@ class GoogleMapController extends Controller
     {
        $validated = $request->validated();
        Boxmap::create($request->all());
-       return redirect('/google-map')->with('success',"Add map success!");
+       return redirect('pages.google-map')->with('success',"Add map success!");
 
 
     }

@@ -5,8 +5,8 @@
         var map = new mapboxgl.Map({
           container: 'map',
           style: 'mapbox://styles/mapbox/streets-v11',
-          center: [106.660172, 10.762622], //lng,lat 10.818746, 106.629179
-          zoom: 7
+          center: [22.4679529, 58.2590756], //lng,lat 10.818746, 106.629179
+          zoom: 6
         });
         var test ='<?php echo $dataArray;?>';  //ta nhận dữ liệu từ Controller
         var dataMap = JSON.parse(test); //chuyển đổi nó về dạng mà Mapbox yêu cầu
@@ -30,10 +30,10 @@
     <style>
         #map {
             width: 100%;
-            height: 500px;
+            height: 400px;
         }
         .marker {
-            background-image: url('/images/point.png');
+            background-image: url("/assets/images/point.png");
             background-repeat:no-repeat;
             background-size:100%;
             width: 50px;
