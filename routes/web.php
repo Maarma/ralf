@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\WeatherController;
+use App\Http\Controllers\GoogleMapController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,11 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/weather', [WeatherController::class, 'getWeather'])->name('weather');
+
+
+Route::get('/pages', [GoogleMapController::class, 'index'])->name('google.map.index');
+Route::post('/pages', [GoogleMapController::class, 'store'])->name('google.map.store');
+
 
 Route::resource('chirps', ChirpController::class)
     ->only(['index', 'store', 'edit', 'update', 'destroy'])
