@@ -34,8 +34,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/weather', [WeatherController::class, 'getWeather'])->name('weather');
 
 
-Route::get('/pages', [GoogleMapController::class, 'index'])->name('google.map.index');
-Route::post('/pages', [GoogleMapController::class, 'store'])->name('google.map.store');
+Route::get('/pages', [GoogleMapController::class, 'index'])->name('google-map.index');
+Route::post('/pages', [GoogleMapController::class, 'store'])->name('google-map.index');
 
 
 Route::resource('chirps', ChirpController::class)

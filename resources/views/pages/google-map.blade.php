@@ -1,3 +1,4 @@
+
 @extends('layouts.main')
 @section('script')
 <script>
@@ -5,7 +6,7 @@
         var map = new mapboxgl.Map({
           container: 'map',
           style: 'mapbox://styles/mapbox/streets-v11',
-          center: [22.4679529, 58.2590756], //lng,lat 10.818746, 106.629179
+          center: [22.59111780902229, 58.811155046391036], //lng,lat 58.811155046391036, 22.59111780902229
           zoom: 6
         });
         var test ='<?php echo $dataArray;?>';  //ta nhận dữ liệu từ Controller
@@ -33,17 +34,18 @@
             height: 400px;
         }
         .marker {
-            background-image: url("/assets/images/point.png");
+            background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSWa7FshvJGov5CWH4dkaCNpmYikkYOoH-lw&s");
             background-repeat:no-repeat;
             background-size:100%;
-            width: 50px;
-            height: 100px;
+            width: 25px;
+            height: 50px;
             cursor: pointer; 
         }
 </style>
 @endsection
 @section('content')
 <div class="container">
+    <button onclick="history.back()">Go Home, You're Drunk!</button>
     <div class="row justify-content-center">
         <div class="col-md-4">
             <h2>Google Map</h2>
@@ -61,7 +63,7 @@
                     </ul>
                 </div>
             @endif
-           <form action="{{route('google.map.store')}}" method="post" id="boxmap">
+            <form action="{{ route('google-map.index') }}" method="post" id="boxmap">
            @csrf
                 <div class="form-group">
                     <label for="title">Title</label>
