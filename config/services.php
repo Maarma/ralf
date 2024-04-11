@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'map' => ['key' => env('GOOGLE_MAPS_API_KEY')],
+
+    'weather' => ['key' => env('OPENWEATHERMAP_API_KEY')],
+
 ];
