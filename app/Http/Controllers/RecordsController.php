@@ -60,7 +60,7 @@ class RecordsController extends Controller
     
     public function destroy($id)
     {
-        if(Records::where('id', $id)-exists())
+        if(Records::where('id', $id)->exists())
         {
             $record = Records::find($id);
             $record->delete();
