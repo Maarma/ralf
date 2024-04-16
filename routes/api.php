@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RecordsController;
+use App\Http\Controllers\Api\RecordsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +14,13 @@ use App\Http\Controllers\RecordsController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
+//auth:sanctum
+/*
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});
+});*/
 Route::get('/records', [RecordsController::class, 'index']);
-Route::get('/records/{id}', [RecordsController::class, 'show']);
 Route::post('/records', [RecordsController::class, 'store']);
+Route::get('/records/{id}', [RecordsController::class, 'show']);
 Route::put('/records/{id}', [RecordsController::class, 'update']);
 Route::delete('/records/{id}', [RecordsController::class, 'destroy']);
