@@ -42,4 +42,12 @@ Route::resource('chirps', ChirpController::class)
     ->only(['index', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
+Route::get('show-api', function() {
+    $requestUrl = match(request('name')) {
+        'Ralf' => 'https://hajus.ta19heinsoo.itmajakas.ee/api/movies',
+        'Liis' => 'https://hajusrakendus.ta22alber.itmajakas.ee/tools',
+        default => 'https://hajusrakendus.ta22maarma.itmajakas.ee/api/records'
+    };
+});
+
 require __DIR__.'/auth.php';

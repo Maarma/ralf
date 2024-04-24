@@ -24,3 +24,11 @@ Route::post('/records', [RecordsController::class, 'store']);
 Route::get('/records/{id}', [RecordsController::class, 'show']);
 Route::put('/records/{id}', [RecordsController::class, 'update']);
 Route::delete('/records/{id}', [RecordsController::class, 'destroy']);
+
+Route::get('tools', function(Request $request){
+
+    if ($limit = request('limit')) {
+        return Cache::remember('my-request'.$limit, now()->addHour(), fn () => Tools::paginate($limit));
+    }
+    return Tools::all();
+});
