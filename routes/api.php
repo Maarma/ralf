@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RecordsController;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,10 +27,16 @@ Route::get('/records/{id}', [RecordsController::class, 'show']);
 Route::put('/records/{id}', [RecordsController::class, 'update']);
 Route::delete('/records/{id}', [RecordsController::class, 'destroy']);
 
-Route::get('tools', function(Request $request){
-
-    if ($limit = request('limit')) {
-        return Cache::remember('my-request'.$limit, now()->addHour(), fn () => Tools::paginate($limit));
-    }
-    return Tools::all();
+Route::get('/movies', function(Request $request){
+    return Cache::remember('ralf-movies', now()->addHour(), fn() => 
+    Http::get('https://hajus.ta19heinsoo.itmajakas.ee/api/movies', [
+        'limit' => 1
+    ])->json());
+});
+/*if ($limit = request('limit')) {
+    return Cache::remember('my-request'.$limit, now()->addHour(), fn () => Tools::paginate($limit));
+}*/
+Route::get('/makeup', function(Request $request){
+    return Cache::remember('makeup', now()->addHour(), fn() => 
+    Http::get('https://ralf.ta22sink.itmajakas.ee/api/makeup')->json());
 });
