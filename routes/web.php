@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/weather', [WeatherController::class, 'getWeather'])->name('weather');
 
-Route::get('api', [RecordsController::class, 'index'])->name('index');
+Route::get('/products', [RecordsController::class, 'records'])->name('records');
 
 Route::get('/pages', [GoogleMapController::class, 'index'])->name('google-map.index');
 Route::post('/pages', [GoogleMapController::class, 'store'])->name('google-map.index');

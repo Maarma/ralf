@@ -55,4 +55,11 @@ class RecordsController extends Controller
 
     return response()->json(null, 204);
     }
+
+    public function records()
+{
+    $responseData = Records::select('name', 'author', 'tracks', 'price', 'image')->get();
+    return view('products.records', ['products' => $responseData]);
+}
+
 }
