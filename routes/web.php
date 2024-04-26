@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\WeatherController;
 use App\Http\Controllers\GoogleMapController;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,11 +44,16 @@ Route::resource('chirps', ChirpController::class)
     ->only(['index', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
-Route::get('show-api', function() {
-    $requestUrl = match(request('name')) {
-        'Ralf' => 'https://hajus.ta19heinsoo.itmajakas.ee/api/movies',
-        'Liis' => 'https://hajusrakendus.ta22alber.itmajakas.ee/tools',
-        default => 'https://hajusrakendus.ta22maarma.itmajakas.ee/api/records'
+Route::get('/show-api', function() {
+    return match(request('name')) {
+        'Ralf' => Cache::remember('movies', now()->addHour(), fn() => 
+        Http::get('https://hajus.ta19heinsoo.itmajakas.ee/api/movies')->json()),
+        'Liis' => Cache::remember('tools', now()->addHour(), fn() => 
+        Http::get('https://hajusrakendus.ta22alber.itmajakas.ee/tools')->json()),
+        'Mari-Liis' => Cache::remember('makeup', now()->addHour(), fn() => 
+        Http::get('https://ralf.ta22sink.itmajakas.ee/api/makeup')->json()),
+        default => Cache::remember('records', now()->addHour(), fn() => 
+        Http::get('https://hajusrakendus.ta22maarma.itmajakas.ee/api/records')->json())
     };
 });
 
