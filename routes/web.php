@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\WeatherController;
 use App\Http\Controllers\GoogleMapController;
+use App\Http\Controllers\Api\RecordsController;
+use App\Models\Api;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -35,6 +37,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/weather', [WeatherController::class, 'getWeather'])->name('weather');
 
+Route::get('api', [RecordsController::class, 'index'])->name('index');
 
 Route::get('/pages', [GoogleMapController::class, 'index'])->name('google-map.index');
 Route::post('/pages', [GoogleMapController::class, 'store'])->name('google-map.index');
