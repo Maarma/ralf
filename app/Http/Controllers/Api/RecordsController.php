@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Records;
 use PhpParser\Node\Stmt\Return_;
+use Illuminate\Support\Facades\Http;
 
 class RecordsController extends Controller
 {
@@ -55,11 +56,26 @@ class RecordsController extends Controller
 
     return response()->json(null, 204);
     }
-
+/*
     public function records()
 {
     $responseData = Records::select('name', 'author', 'tracks', 'price', 'image')->get();
     return view('products.records', ['products' => $responseData]);
 }
+*/
+public function records(){
 
+    $responseData = Http::get('https://hajusrakendus.ta22maarma.itmajakas.ee/api/records')->json();
+    return view('records.records', ['products' => $responseData]);
+}
+public function makeup(){
+
+    $responseData = Http::get('https://ralf.ta22sink.itmajakas.ee/api/makeup')->json();
+    return view('makeup.makeup', ['products' => $responseData]);
+}
+public function movies(){
+
+    $responseData = Http::get('https://hajus.ta19heinsoo.itmajakas.ee/api/movies')->json();
+    return view('movies.movies', ['products' => $responseData]);
+}
 }

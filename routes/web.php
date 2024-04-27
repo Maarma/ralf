@@ -37,7 +37,9 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/weather', [WeatherController::class, 'getWeather'])->name('weather');
 
-Route::get('/products', [RecordsController::class, 'records'])->name('records');
+Route::get('/records', [RecordsController::class, 'records'])->name('records');
+Route::get('/movies', [RecordsController::class, 'movies'])->name('movies');
+Route::get('/makeup', [RecordsController::class, 'makeup'])->name('makeup');
 
 Route::get('/pages', [GoogleMapController::class, 'index'])->name('google-map.index');
 Route::post('/pages', [GoogleMapController::class, 'store'])->name('google-map.index');
