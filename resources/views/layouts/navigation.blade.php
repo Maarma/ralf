@@ -24,8 +24,11 @@
                     <x-nav-link :href="route('google-map.index')" :active="request()->routeIs('google-map.index')">
                         {{ __('Maps') }}
                     </x-nav-link>
-                    <x-nav-link href="https://hajusrakendus.ta22maarma.itmajakas.ee/api/records">
-                        {{ __('Api') }}
+                    <x-nav-link :href="route('records')" :active="request()->routeIs('records')">
+                        {{ __('Records') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('movies')" :active="request()->routeIs('movies')">
+                        {{ __('Movies') }}
                     </x-nav-link>
                 </div>
             </div>
