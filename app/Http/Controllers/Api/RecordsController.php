@@ -75,7 +75,8 @@ public function makeup(){
 }
 public function movies(){
 
-    $responseData = Http::get('https://hajus.ta19heinsoo.itmajakas.ee/api/movies')->json();
-    return view('movies.movies', ['products' => $responseData]);
+    $responseData = Http::get('https://hajus.ta19heinsoo.itmajakas.ee/api/movies');
+    $movies = $responseData->json()['data'];
+    return view('movies.movies', compact('movies'));
 }
 }
