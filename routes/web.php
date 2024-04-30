@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\WeatherController;
 use App\Http\Controllers\GoogleMapController;
+use App\Http\Controllers\RadarController;
 use App\Http\Controllers\Api\RecordsController;
 use App\Models\Api;
 use Illuminate\Support\Facades\Cache;
@@ -43,6 +44,9 @@ Route::get('/makeup', [RecordsController::class, 'makeup'])->name('makeup');
 
 Route::get('/pages', [GoogleMapController::class, 'index'])->name('google-map.index');
 Route::post('/pages', [GoogleMapController::class, 'store'])->name('google-map.index');
+
+Route::get('/radar', [RadarController::class, 'index'])->name('radar.index');
+Route::post('/radar', [RadarController::class, 'addMarker'])->name('radar.index');
 
 
 Route::resource('chirps', ChirpController::class)
