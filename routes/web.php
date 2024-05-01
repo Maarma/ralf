@@ -50,7 +50,7 @@ Route::get('/radar', [RadarController::class, 'index'])->name('radar.index');
 Route::post('/radar', [RadarController::class, 'addMarker'])->name('radar.index');
 
 Route::resource('/markers', MarkerController::class)
-    ->only(['index', 'store', 'edit', 'update', 'destroy'])
+    ->only(['index','create', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::resource('chirps', ChirpController::class)

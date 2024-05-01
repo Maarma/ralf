@@ -16,21 +16,9 @@ class RadarController extends Controller
      */
     public function index(): View
     {
-        return view('radar.index');
+        $markers = Boxmap::all();
+        return view('radar.index', compact('markers'));
     }
-
-    public function addMarker(Request $request)
-    {
-        $marker = new Boxmap;
-        $marker->latitude = $request->input('latitude');
-        $marker->longitude = $request->input('longitude');
-        $marker->name = $request->input('name');
-        $marker->description = $request->input('description');
-        $marker->save();
-    
-        return response()->json(['success' => true]);
-    }
-
 
     /**
      * Show the form for creating a new resource.

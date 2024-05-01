@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Boxmap extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'description', 'latitude', 'longitude'];
+    protected $fillable = ['title', 'description', 'lat', 'lng'];
 }

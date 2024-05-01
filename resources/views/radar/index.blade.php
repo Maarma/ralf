@@ -15,8 +15,8 @@
     const map = Radar.ui.map({
       container: 'map',
       style: 'radar-default-v1',
-      center: [22.47910733785186, 58.24740279451225], // NYC
-      zoom: 13
+      center: [25.103546459008548, 58.955730932345226], // NYC
+      zoom: 7
     });
 /*
     // add a marker to the map
@@ -25,15 +25,22 @@
       .addTo(map);
       */
      // Create and add markers to the map
+     /*
 const markers = [
     { text: 'Linnus', lngLat: [22.47910733785186, 58.24740279451225] },
     { text: 'Ametikool', lngLat: [22.483142672127826, 58.256426010099986] },
     { text: 'Nooruse kool', lngLat: [22.498307563131316, 58.248570227137044] }
-];
-
+];*/
+const markers = {!! json_encode($markers) !!};
+/*
 markers.forEach(markerInfo => {
     const marker = Radar.ui.marker({ text: markerInfo.text })
         .setLngLat(markerInfo.lngLat)
+        .addTo(map);
+});*/
+markers.forEach(markerInfo => {
+    const marker = Radar.ui.marker({ text: markerInfo.description })
+        .setLngLat([markerInfo.lng, markerInfo.lat]) // Adjust the order of lng and lat if needed
         .addTo(map);
 });
 

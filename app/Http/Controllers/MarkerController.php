@@ -20,43 +20,22 @@ class MarkerController extends Controller
         return view('markers.index', compact('markers'));
     }
 
-    public function addMarker(Request $request)
-    {
-        $marker = new Boxmap;
-        $marker->latitude = $request->input('latitude');
-        $marker->longitude = $request->input('longitude');
-        $marker->name = $request->input('name');
-        $marker->description = $request->input('description');
-        $marker->save();
-    
-        return response()->json(['success' => true]);
-    }
-
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('markers.add');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'latitude' => 'required',
-            'longitude' => 'required',
-        ]);
- 
-        $request->user()->markers()->create($validated);
- 
-        return redirect(route('markers.index'));
-    }
+    public function store(Request $request)
+{
+    Boxmap::create($request->all());
+    return redirect()->route('markers.index');
+}
 
     /**
      * Display the specified resource.
@@ -71,36 +50,20 @@ class MarkerController extends Controller
      */
     public function edit(Boxmap $marker): View
     {
-        $this->authorize('update', $marker);
- 
-        return view('markers.edit', [
-            'marker' => $marker,
-        ]);
+        return view('markers.edit', compact('marker'));
+
     }
 
     public function destroy(Boxmap $marker): RedirectResponse
     {
-        $this->authorize('delete', $marker);
- 
         $marker->delete();
- 
-        return redirect(route('markers.index'));
+        return redirect()->route('markers.index');
     }
 
     public function update(Request $request, Boxmap $marker): RedirectResponse
     {
-        $this->authorize('update', $marker);
- 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'latitude' => 'required',
-            'longitude' => 'required',
-        ]);
- 
-        $marker->update($validated);
- 
-        return redirect(route('markers.index'));
+        $marker->update($request->all());
+    return redirect()->route('markers.index');
     }
 
 }
