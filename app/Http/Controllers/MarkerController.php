@@ -9,14 +9,15 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Ramsey\Uuid\Type\Integer;
 
-class RadarController extends Controller
+class MarkerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        return view('radar.index');
+        $markers = Boxmap::all();
+        return view('markers.index', compact('markers'));
     }
 
     public function addMarker(Request $request)
