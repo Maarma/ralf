@@ -15,7 +15,7 @@
         @foreach($markers as $marker)
     <div>
         <li>
-            <div class="grid grid-cols-8">
+            <div class="grid grid-cols-8 space-y-1">
         <h3 class="col-span-1">{{ $marker->title }}</h3>
         <p class="col-span-2">Lat: {{ $marker->lat }}</p>
         <p class="col-span-2">Lng: {{ $marker->lng }}</p>
@@ -23,7 +23,7 @@
 
         <!-- Add edit and delete buttons -->
         <div class="col-span-1">
-        <div class="flex">
+        <div class="flex space-x-1">
         <x-primary-button><a href="{{ route('markers.edit', $marker->id) }}">Edit</a></x-primary-button>
         
         <form action="{{ route('markers.destroy', $marker->id) }}" method="POST">
