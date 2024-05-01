@@ -48,6 +48,9 @@ Route::post('/pages', [GoogleMapController::class, 'store'])->name('google-map.i
 Route::get('/radar', [RadarController::class, 'index'])->name('radar.index');
 Route::post('/radar', [RadarController::class, 'addMarker'])->name('radar.index');
 
+Route::resource('/markers', RadarController::class)
+    ->only(['index', 'store', 'edit', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
 
 Route::resource('chirps', ChirpController::class)
     ->only(['index', 'store', 'edit', 'update', 'destroy'])

@@ -33,6 +33,9 @@
                     <x-nav-link :href="route('radar.index')" :active="request()->routeIs('radar')">
                         {{ __('Radar') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('markers.index')" :active="request()->routeIs('markers')">
+                        {{ __('Markers') }}
+                    </x-nav-link>
                 </div>
             </div>
             

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response; 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Ramsey\Uuid\Type\Integer;
 
 class RadarController extends Controller
 {
@@ -15,7 +16,7 @@ class RadarController extends Controller
      */
     public function index(): View
     {
-        return view('radar.index');
+        return view('markers.index');
     }
 
     public function addMarker(Request $request)
@@ -42,9 +43,18 @@ class RadarController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store()
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'latitude' => 'required',
+            'longitude' => 'required',
+        ]);
+ 
+        $request->user()->markers()->create($validated);
+ 
+        return redirect(route('markers.index'));
     }
 
     /**
@@ -58,13 +68,38 @@ class RadarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(Boxmap $marker): View
     {
-        
+        $this->authorize('update', $marker);
+ 
+        return view('markers.edit', [
+            'marker' => $marker,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    public function destroy(Boxmap $marker): RedirectResponse
+    {
+        $this->authorize('delete', $marker);
+ 
+        $marker->delete();
+ 
+        return redirect(route('markers.index'));
+    }
+
+    public function update(Request $request, Boxmap $marker): RedirectResponse
+    {
+        $this->authorize('update', $marker);
+ 
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'latitude' => 'required',
+            'longitude' => 'required',
+        ]);
+ 
+        $marker->update($validated);
+ 
+        return redirect(route('markers.index'));
+    }
 
 }
