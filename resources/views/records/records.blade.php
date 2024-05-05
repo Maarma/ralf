@@ -4,7 +4,7 @@
             {{ __('Records') }}
         </h2>
     </x-slot>
-
+    dd($products)
     <div class="product-container">
         @foreach ($products as $product)
             <div class="product-card">
@@ -14,6 +14,8 @@
                     <p class="product-author">Artist: {{ $product['author'] }}</p>
                     <p class="product-tracks">Tracks: {{ $product['tracks'] }}</p>
                     <p class="product-price">Price: ${{ $product['price'] }}</p>
+                    <p class="product-price">Price: ${{ $product['id'] }}</p>
+                   
                 </div>
             </div>
         @endforeach
@@ -49,5 +51,8 @@ p, h2{
 h2{
     font-weight: 700;
     font-size: 20px;
+}
+button {
+    margin-bottom: 20px;
 }
 </style>

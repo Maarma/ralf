@@ -15,7 +15,7 @@ class RecordsController extends Controller
      */
     public function index()
     {
-        $responseData = Records::select('name', 'author', 'tracks', 'price', 'image')->get();
+        $responseData = Records::select('id', 'name', 'author', 'tracks', 'price', 'image')->get();
         return response()->json($responseData);
     }
 
@@ -56,13 +56,7 @@ class RecordsController extends Controller
 
     return response()->json(null, 204);
     }
-/*
-    public function records()
-{
-    $responseData = Records::select('name', 'author', 'tracks', 'price', 'image')->get();
-    return view('products.records', ['products' => $responseData]);
-}
-*/
+
 public function records(){
 
     $responseData = Http::get('https://hajusrakendus.ta22maarma.itmajakas.ee/api/records')->json();
@@ -78,5 +72,12 @@ public function movies(){
     $responseData = Http::get('https://hajus.ta19heinsoo.itmajakas.ee/api/movies');
     $movies = $responseData->json()['data'];
     return view('movies.movies', compact('movies'));
+}
+public function addToCart($id) {
+    $product = Records::findOrFail($id);
+
+        // Logic to add item to cart (e.g., session, database, etc.)
+
+        return redirect()->back()->with('success', 'Item added to cart successfully.');
 }
 }
