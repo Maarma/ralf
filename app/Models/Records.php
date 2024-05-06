@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Records extends Model
 {
     protected $table = 'records';
-    protected $fillable = ['name', 'author', 'price', 'image', 'tracks'];
+    protected $fillable = ['product_id','name', 'author', 'price', 'image', 'tracks'];
 }
