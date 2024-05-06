@@ -4,7 +4,6 @@
             {{ __('Records') }}
         </h2>
     </x-slot>
-    dd($products)
     <div class="product-container">
         @foreach ($products as $product)
             <div class="product-card">
@@ -14,7 +13,10 @@
                     <p class="product-author">Artist: {{ $product['author'] }}</p>
                     <p class="product-tracks">Tracks: {{ $product['tracks'] }}</p>
                     <p class="product-price">Price: ${{ $product['price'] }}</p>
-                    <p class="product-price">Price: ${{ $product['product_id'] }}</p>
+                    <form action="{{ route('addToCart', $product['product_id']) }}" method="POST">
+                        @csrf
+                        <x-primary-button type="submit">Add to Cart</x-primary-button>
+                    </form>
                    
                 </div>
             </div>
@@ -54,5 +56,6 @@ h2{
 }
 button {
     margin-bottom: 20px;
+    margin-left: 20px;
 }
 </style>

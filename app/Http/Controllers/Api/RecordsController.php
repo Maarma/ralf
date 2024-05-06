@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Records;
+use App\Models\Cart;
 use PhpParser\Node\Stmt\Return_;
 use Illuminate\Support\Facades\Http;
 
@@ -73,11 +74,28 @@ public function movies(){
     $movies = $responseData->json()['data'];
     return view('movies.movies', compact('movies'));
 }
-public function addToCart($id) {
-    $product = Records::findOrFail($id);
 
-        // Logic to add item to cart (e.g., session, database, etc.)
+public function addToCart($product_id)
+{
+    try {
+        $product = Records::findOrFail($product_id);
+        
+        // Store cart item in the database
+        Cart::create([
+            'product_id' => $product['product_id'],
+            'name' => $product['name'],
+            'quantity' => 1,
+            'price' => $product['price']
+        ]);
 
         return redirect()->back()->with('success', 'Item added to cart successfully.');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Failed to add item to cart: ' . $e->getMessage());
+    }
+}
+public function showCart()
+{
+    $cartItems = Cart::all(); // Retrieve cart items from the database
+    return view('cart', compact('cartItems'));
 }
 }

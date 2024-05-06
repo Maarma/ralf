@@ -37,28 +37,37 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//Weather api page
 Route::get('/weather', [WeatherController::class, 'getWeather'])->name('weather');
 
+//Products pages
 Route::get('/records', [RecordsController::class, 'records'])->name('records');
 Route::get('/movies', [RecordsController::class, 'movies'])->name('movies');
 Route::get('/makeup', [RecordsController::class, 'makeup'])->name('makeup');
 
-Route::post('/addToCart/{id}', [RecordsController::class, 'addToCart'])->name('addToCart');
+//Shopping cart
+Route::post('addToCart/{product_id}', [RecordsController::class, 'addToCart'])->name('addToCart');
+Route::get('cart', [RecordsController::class, 'showCart'])->name('cart');
 
+//Google map
 Route::get('/pages', [GoogleMapController::class, 'index'])->name('google-map.index');
 Route::post('/pages', [GoogleMapController::class, 'store'])->name('google-map.index');
 
+//Radar map
 Route::get('/radar', [RadarController::class, 'index'])->name('radar.index');
 Route::post('/radar', [RadarController::class, 'addMarker'])->name('radar.index');
 
+//Map markers
 Route::resource('/markers', MarkerController::class)
     ->only(['index','create', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
+//Blog posts
 Route::resource('chirps', ChirpController::class)
     ->only(['index', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
+//Api resources
 Route::get('/show-api', function() {
     return match(request('name')) {
         'Ralf' => Cache::remember('movies', now()->addHour(), fn() => 
