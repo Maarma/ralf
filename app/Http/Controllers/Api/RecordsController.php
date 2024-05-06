@@ -15,7 +15,7 @@ class RecordsController extends Controller
      */
     public function index()
     {
-        $responseData = Records::select('id', 'name', 'author', 'tracks', 'price', 'image')->get();
+        $responseData = Records::select('product_id', 'name', 'author', 'tracks', 'price', 'image')->get();
         return response()->json($responseData);
     }
 

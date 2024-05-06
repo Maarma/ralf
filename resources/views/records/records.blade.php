@@ -14,7 +14,7 @@
                     <p class="product-author">Artist: {{ $product['author'] }}</p>
                     <p class="product-tracks">Tracks: {{ $product['tracks'] }}</p>
                     <p class="product-price">Price: ${{ $product['price'] }}</p>
-                    <p class="product-price">Price: ${{ $product['id'] }}</p>
+                    <p class="product-price">Price: ${{ $product['product_id'] }}</p>
                    
                 </div>
             </div>
