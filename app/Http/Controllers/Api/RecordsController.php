@@ -75,24 +75,27 @@ public function movies(){
     return view('movies.movies', compact('movies'));
 }
 
-public function addToCart($product_id)
+public function addToCart(Request $request)
 {
+    
     try {
-        $product = Records::findOrFail($product_id);
+        $product = Records::findOrFail($request);
         
         // Store cart item in the database
         Cart::create([
-            'product_id' => $product['product_id'],
-            'name' => $product['name'],
+            'product_id' => $product->product_id,
+            'name' => $product->name,
             'quantity' => 1,
-            'price' => $product['price']
+            'price' => $product->price
         ]);
+        
 
         return redirect()->back()->with('success', 'Item added to cart successfully.');
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Failed to add item to cart: ' . $e->getMessage());
     }
 }
+
 public function showCart()
 {
     $cartItems = Cart::all(); // Retrieve cart items from the database
