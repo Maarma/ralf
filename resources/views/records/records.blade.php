@@ -16,6 +16,7 @@
                     <form action="{{ route('addToCart', $product['product_id']) }}" method="POST">
                         @csrf
                         <x-primary-button type="submit">Add to Cart</x-primary-button>
+                        @method('POST')
                     </form>
                    
                 </div>

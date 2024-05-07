@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('product_id')->nullable();
             $table->string('name')->nullable();
             $table->decimal('price')->nullable();

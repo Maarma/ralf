@@ -8,6 +8,7 @@ use App\Models\Records;
 use App\Models\Cart;
 use PhpParser\Node\Stmt\Return_;
 use Illuminate\Support\Facades\Http;
+use Ramsey\Uuid\Type\Integer;
 
 class RecordsController extends Controller
 {
@@ -75,11 +76,11 @@ public function movies(){
     return view('movies.movies', compact('movies'));
 }
 
-public function addToCart(Request $request)
+public function addToCart(Request $request, $product_id)
 {
     
     try {
-        $product = Records::findOrFail($request);
+        $product = Records::findOrFail($product_id);
         
         // Store cart item in the database
         Cart::create([
