@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\RecordsController;
 use App\Models\Api;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use App\Http\Middleware\CacheMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,9 @@ Route::middleware('auth')->group(function () {
 });
 
 //Weather api page
-Route::get('/weather', [WeatherController::class, 'getWeather'])->name('weather');
+Route::middleware([CacheMiddleware::class])->group(function () {
+    Route::get('/weather', [WeatherController::class, 'getWeather'])->name('weather');
+});
 
 //Products pages
 Route::get('/records', [RecordsController::class, 'records'])->name('records');

@@ -7,6 +7,7 @@
     <link href="https://js.radar.com/v4.1.18/radar.css" rel="stylesheet">
     <script src="https://js.radar.com/v4.1.18/radar.min.js"></script>
     <div id="map" style="width: 100%; height: 500px;" />
+    <div><p id="info"></p></div>
 </x-app-layout>
 <script type="text/javascript">
     Radar.initialize('prj_live_pk_d48531f2f7b0cb891191f7819fd060199596063d');
@@ -70,5 +71,15 @@ map.on('onclick', function(e) {
         }
     });
 });
+map.on('mousemove', function (e) {
+        document.getElementById('info').innerHTML =
+            // e.point is the x, y coordinates of the mousemove event relative
+            // to the top-left corner of the map
+            JSON.stringify(e.point) +
+            '<br />' +
+            // e.lngLat is the longitude, latitude geographical position of the event
+            JSON.stringify(e.lngLat.wrap());
+    });
+</script>
 
-  </script>
+</script>
