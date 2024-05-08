@@ -63,6 +63,16 @@
                             </div>
                         @endforeach
                     </div>
+                    @if ($chirp->comments)
+                    <div class="comments mt-4">
+                        @foreach ($chirp->comments as $comment)
+                    </div>
+                    <p class="mt-4 text-lg text-gray-900">{{ $comment->comment }}</p>
+                </div>
+                             
+                        @endforeach
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
