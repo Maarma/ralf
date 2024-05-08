@@ -15,6 +15,8 @@
                     <p class="product-price">Price: ${{ $product['price'] }}</p>
                     <form action="{{ route('addToCart', $product['product_id']) }}" method="POST">
                         @csrf
+                        <label for="amount">Number of records:</label>
+                        <input type="number" id="amount" name="amount" min="0" max="99" value="0" />
                         <x-primary-button type="submit">Add to Cart</x-primary-button>
                         @method('POST')
                     </form>
@@ -57,6 +59,12 @@ h2{
 }
 button {
     margin-bottom: 20px;
+    margin-left: 20px;
+}
+#amount{
+    border-radius: 5px;
+}
+label{
     margin-left: 20px;
 }
 </style>

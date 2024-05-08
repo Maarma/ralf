@@ -12,6 +12,7 @@ class WeatherController extends Controller
     {
         // Check if weather data is cached
         if (Cache::has('cached_weather_data')) {
+            
             // If cached, retrieve data from cache and pass it to the view
             $weatherData = Cache::get('cached_weather_data');
             $cacheTimestamp = Cache::get('cached_weather_data_timestamp');
