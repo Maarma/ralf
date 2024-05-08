@@ -49,6 +49,7 @@ Route::get('/movies', [RecordsController::class, 'movies'])->name('movies');
 Route::get('/makeup', [RecordsController::class, 'makeup'])->name('makeup');
 
 //Shopping cart
+//Route::get('addToCart/{product_id}', [RecordsController::class, 'cart'])->name('addToCart');
 Route::post('addToCart/{product_id}', [RecordsController::class, 'addToCart'])->name('addToCart');
 Route::get('cart', [RecordsController::class, 'showCart'])->name('cart');
 

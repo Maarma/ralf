@@ -13,14 +13,13 @@
                     <p class="product-author">Artist: {{ $product['author'] }}</p>
                     <p class="product-tracks">Tracks: {{ $product['tracks'] }}</p>
                     <p class="product-price">Price: ${{ $product['price'] }}</p>
-                    <form action="{{ route('addToCart', $product['product_id']) }}" method="POST">
+                    <form action="{{ route('addToCart', ['product_id' => $product['product_id']]) }}" method="POST">
                         @csrf
+                        <input type="hidden" name="product_id" value="{{ $product['product_id'] }}">
                         <label for="amount">Number of records:</label>
                         <input type="number" id="amount" name="amount" min="0" max="99" value="0" />
                         <x-primary-button type="submit">Add to Cart</x-primary-button>
-                        @method('POST')
                     </form>
-                   
                 </div>
             </div>
         @endforeach

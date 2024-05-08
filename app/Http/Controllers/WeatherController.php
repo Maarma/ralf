@@ -19,7 +19,7 @@ class WeatherController extends Controller
             return view('weather', ['weatherData' => $weatherData, 'cacheTimestamp' => $cacheTimestamp]);
         }
 
-        // Replace 'YOUR_API_KEY' with your OpenWeather API key
+        //  OpenWeather API key
         $apiKey = config('services.weather.key');
         
         // Create a new Guzzle client instance
@@ -34,12 +34,11 @@ class WeatherController extends Controller
 
             // Get the response body as an array
             $data = json_decode($response->getBody(), true);
-
             // Cache the weather data and timestamp for 15 minutes
             $cacheTimestamp = now();
             Cache::put('cached_weather_data', $data, now()->addMinutes(15));
             Cache::put('cached_weather_data_timestamp', $cacheTimestamp, now()->addMinutes(15));
-
+            
             // Pass the weather data and cache timestamp to the view
             return view('weather', ['weatherData' => $data, 'cacheTimestamp' => $cacheTimestamp]);
         } catch (\Exception $e) {

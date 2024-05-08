@@ -76,30 +76,41 @@ public function movies(){
     return view('movies.movies', compact('movies'));
 }
 
-public function addToCart(Request $request, $product_id)
+public function cart(){
+    return redirect()->back()->with('success', 'Item added to cart successfully.');
+}
+
+public function addToCart($product_id)
 {
+    $product = Records::where('product_id', $product_id)->firstOrFail();
+    //dd($product);
     
-    try {
-        $product = Records::findOrFail($product_id);
-        
+        // Get current cart items from session
+        $cartItems = session()->get('cart', []);
         // Store cart item in the database
-        Cart::create([
-            'product_id' => $product->product_id,
-            'name' => $product->name,
+        $cartItems[] = ([
+            'product_id' => $product_id,
+            'name' => $product['name'],
             'quantity' => 1,
-            'price' => $product->price
+            'price' => $product['price']
         ]);
         
-
-        return redirect()->back()->with('success', 'Item added to cart successfully.');
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'Failed to add item to cart: ' . $e->getMessage());
-    }
+    // Store the updated cart items back into the session
+    session()->put('cart', $cartItems);
+    return redirect()->back()->with('success', 'Item added to cart successfully.');
+    
 }
 
 public function showCart()
 {
-    $cartItems = Cart::all(); // Retrieve cart items from the database
-    return view('cart', compact('cartItems'));
+    $cartItems = session('cart', []);
+
+    $total = 0;
+
+    foreach ($cartItems as $item) {
+        $total += $item['price'] * $item['quantity'];
+    }
+
+    return view('cart', compact('cartItems', 'total'));
 }
 }
