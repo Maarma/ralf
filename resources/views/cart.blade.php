@@ -31,7 +31,7 @@
                         <p class="pb-4">Price: {{ $cartItem['price'] }} €</p>
                     </div>
                     <div class="text-right">
-                        <form action="{{ route('removeFromCart', $index) }}" method="POST">
+                        <form action="{{ route('checkout.checkout') }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <x-danger-button class="text-right" type="submit">X</x-danger-button>

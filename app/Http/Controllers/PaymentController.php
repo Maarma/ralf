@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config; 
 use Session;
 
-class CheckoutController extends Controller
+class PaymentController extends Controller
 {
 
     public function index()
@@ -34,9 +34,6 @@ class CheckoutController extends Controller
                 'quantity' => $cartItems['quantity'],
             ];
         }
-
-
-
 
         $checkout_session = \Stripe\Checkout\Session::create([
         'line_items' => $lineItems,

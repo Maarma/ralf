@@ -12,9 +12,29 @@
                     {{ __("You're logged in!") }}
                 </div>
                 <div class="p-6">
-                    <h1 class="font-bold text-xl">Minumum effort, maximum result!</h1>
+                    <p class="font-bold text-xl"  id="hoverText">Minumum effort, maximum result!</p>
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    // Get the <p> element
+    var paragraph = document.getElementById("hoverText");
+    
+    // Define the new text
+    var newText = "I work really hard for my epic fails!";
+    
+    // Add event listener for mouseover
+    paragraph.addEventListener("mouseover", function() {
+      // Change the text content
+      paragraph.textContent = newText;
+    });
+    
+    // Add event listener for mouseout (to revert back)
+    paragraph.addEventListener("mouseout", function() {
+      // Change the text content back to original
+      paragraph.textContent = "Minumum effort, maximum result!";
+    });
+    </script>
