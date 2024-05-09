@@ -50,8 +50,11 @@ Route::get('/makeup', [RecordsController::class, 'makeup'])->name('makeup');
 
 //Shopping cart
 //Route::get('addToCart/{product_id}', [RecordsController::class, 'cart'])->name('addToCart');
-Route::post('addToCart/{product_id}', [RecordsController::class, 'addToCart'])->name('addToCart');
+Route::post('addToCart/{product_id}/{quantity}', [RecordsController::class, 'addToCart'])->name('addToCart');
 Route::get('cart', [RecordsController::class, 'showCart'])->name('cart');
+Route::patch('/updateCartItem/{index}', [RecordsController::class, 'updateCartItem'])->name('updateCartItem');
+Route::delete('/removeFromCart/{index}', [RecordsController::class, 'removeFromCart'])->name('removeFromCart');
+
 
 //Google map
 Route::get('/pages', [GoogleMapController::class, 'index'])->name('google-map.index');

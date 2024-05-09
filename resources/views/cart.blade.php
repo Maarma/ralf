@@ -10,25 +10,31 @@
                 <h1 class="m-4 font-bold">Shopping Cart</h1>
                 <div class="cart">
                     @if(session()->has('cart') && count(session('cart')) > 0)
-            @foreach(session('cart') as $index => $cartItem)
-                <div class="cart-item m-4">
-                    <h2>{{ $cartItem['name'] }}</h2>
-                    <p>Quantity: 
-                        <input type="number" name="quantity[{{ $index }}]" value="{{ $cartItem['quantity'] }}" min="1">
-                    </p>
-                    <p>Price: {{ $cartItem['price'] }} €</p>
-                    <!-- Add a form to remove the item from the cart -->
-                    <form action="{{ route('removeFromCart', $index) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">Remove from Cart</button>
-                    </form>
-                </div>
-            @endforeach
+                    @foreach(session('cart') as $index => $cartItem)
+                    <div class="cart-item grid grid-row grid-cols-4 mx-4 h-12 items-center">
+                        <h2 class="pb-4">{{ $cartItem['name'] }}</h2>
+                        <form action="{{ route('updateCartItem', $index) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <p>
+                                Quantity:
+                                <x-text-input class="w-16" type="number" name="quantity" value="{{ $cartItem['quantity'] }}" min="1" max="99"/>
+                                <x-primary-button type="submit">Update</x-primary-button>
+                            </p>
+                        </form>
+                        <p class="pb-4">Price: {{ $cartItem['price'] }} €</p>
+                        <!-- Add a form to remove the item from the cart -->
+                        <form action="{{ route('removeFromCart', $index) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <x-danger-button type="submit">X</x-danger-button>
+                        </form>
+                    </div>
+                @endforeach
         @else
             <p>No items in cart</p>
         @endif
-                    <p class="m-4">total sum: {{ $total }} €</p>
+                    <p class="m-4 font-bold">total sum: {{ $total }} €</p>
                 </div>
         </div>
     </div>

@@ -13,11 +13,11 @@
                     <p class="product-author">Artist: {{ $product['author'] }}</p>
                     <p class="product-tracks">Tracks: {{ $product['tracks'] }}</p>
                     <p class="product-price">Price: ${{ $product['price'] }}</p>
-                    <form action="{{ route('addToCart', ['product_id' => $product['product_id']]) }}" method="POST">
+                    <form action="{{ route('addToCart', ['product_id' => $product['product_id'], 'quantity' => ':amount']) }}" method="POST">
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $product['product_id'] }}">
                         <label for="amount">Number of records:</label>
-                        <input type="number" id="amount" name="amount" min="0" max="99" value="0" />
+                        <input type="number" id="amount" name="amount" min="1" max="99" value="1" />
                         <x-primary-button type="submit">Add to Cart</x-primary-button>
                     </form>
                 </div>
@@ -67,3 +67,12 @@ label{
     margin-left: 20px;
 }
 </style>
+<script>
+    // JavaScript to dynamically update form action based on amount value
+    document.getElementById('amount').addEventListener('change', function() {
+        var amount = this.value;
+        var formAction = "{{ route('addToCart', ['product_id' => $product['product_id'], 'quantity' => ':amount']) }}";
+        formAction = formAction.replace(':amount', amount);
+        document.getElementById('addToCartForm').action = formAction;
+    });
+</script>

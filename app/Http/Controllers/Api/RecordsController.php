@@ -80,21 +80,39 @@ public function cart(){
     return redirect()->back()->with('success', 'Item added to cart successfully.');
 }
 
-public function addToCart($product_id)
+public function addToCart(Request $request)
 {
+    $product_id = $request->input('product_id');
+    $quantity = $request->input('amount');
+
+    // Retrieve product details from the database
     $product = Records::where('product_id', $product_id)->firstOrFail();
-    //dd($product);
-    
-        // Get current cart items from session
-        $cartItems = session()->get('cart', []);
-        // Store cart item in the database
-        $cartItems[] = ([
+
+    // Get current cart items from session
+    $cartItems = session()->get('cart', []);
+
+    // Check if the item already exists in the cart
+    $itemIndex = -1;
+    foreach ($cartItems as $index => $item) {
+        if ($item['product_id'] == $product_id) {
+            $itemIndex = $index;
+            break;
+        }
+    }
+
+    // If the item exists in the cart, update its quantity
+    if ($itemIndex !== -1) {
+        $cartItems[$itemIndex]['quantity'] += $quantity;
+    } else {
+        // Otherwise, add the new item to the cart
+        $cartItems[] = [
             'product_id' => $product_id,
             'name' => $product['name'],
-            'quantity' => 1,
+            'quantity' => $quantity,
             'price' => $product['price']
-        ]);
-        
+        ];
+    }
+
     // Store the updated cart items back into the session
     session()->put('cart', $cartItems);
     return redirect()->back()->with('success', 'Item added to cart successfully.');
@@ -108,9 +126,46 @@ public function showCart()
     $total = 0;
 
     foreach ($cartItems as $item) {
-        $total += $item['price'] * $item['quantity'];
+        // Cast price and quantity to float to ensure numeric values
+        $price = (float)$item['price'];
+        $quantity = (int)$item['quantity'];
+
+        // Add the product's price multiplied by its quantity to the total
+        $total += $price * $quantity;
+    }
+    //dd(session('cart'));
+    return view('cart', compact('cartItems', 'total'));
+}
+public function removeFromCart($index)
+    {
+        // Remove item from cart using the index or any other identifier
+        
+        // For example, if you are using session to store cart items
+        $cart = session()->get('cart');
+        
+        // Remove the item at the specified index
+        unset($cart[$index]);
+        
+        // Update the session cart with the modified cart
+        session()->put('cart', $cart);
+        
+        // Redirect back or wherever you want after removing from cart
+        return redirect()->back()->with('success', 'Item removed from cart successfully.');
+    }
+    public function updateCartItem(Request $request, $index)
+{
+    $quantity = $request->input('quantity');
+
+    // Get current cart items from session
+    $cartItems = session()->get('cart', []);
+
+    // Update the quantity of the item at the specified index
+    if (isset($cartItems[$index])) {
+        $cartItems[$index]['quantity'] = $quantity;
+        session()->put('cart', $cartItems);
     }
 
-    return view('cart', compact('cartItems', 'total'));
+    // Redirect back to the cart page
+    return redirect()->route('cart')->with('success', 'Cart item updated successfully.');
 }
 }
