@@ -11,6 +11,9 @@
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
                 </div>
+                <div class="p-6">
+                    <h1 class="font-bold text-xl">Minumum effort, maximum result!</h1>
+                </div>
             </div>
         </div>
     </div>

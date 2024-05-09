@@ -12,6 +12,7 @@ use App\Models\Api;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use App\Http\Middleware\CacheMiddleware;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,13 @@ Route::get('/show-api', function() {
         default => Cache::remember('records', now()->addHour(), fn() => 
         Http::get('https://hajusrakendus.ta22maarma.itmajakas.ee/api/records')->json())
     };
+});
+// Payment routes
+Route::middleware(['auth', 'verified'])->prefix('checkout')->name('checkout.')->group(function () {
+    Route::get('/', [PaymentController::class, 'index'])->name('index');
+    Route::post('/sessions', [PaymentController::class, 'checkout'])->name('checkout');
+    Route::get('/success', [PaymentController::class, 'success'])->name('success');
+    Route::get('/cancel', [PaymentController::class, 'cancel'])->name('cancel');
 });
 
 require __DIR__.'/auth.php';
