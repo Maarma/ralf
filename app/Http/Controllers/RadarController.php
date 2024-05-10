@@ -23,9 +23,10 @@ class RadarController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        Boxmap::create($request->all());
+        return redirect()->route('radar.index');
     }
 
     /**
@@ -42,7 +43,7 @@ class RadarController extends Controller
  
         $request->user()->markers()->create($validated);
  
-        return redirect(route('markers.index'));
+        return redirect(route('radar.index'));
     }
 
     /**

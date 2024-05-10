@@ -64,7 +64,7 @@ Route::post('/pages', [GoogleMapController::class, 'store'])->name('google-map.i
 
 //Radar map
 Route::get('/radar', [RadarController::class, 'index'])->name('radar.index');
-Route::post('/radar', [RadarController::class, 'addMarker'])->name('radar.index');
+Route::post('/radar', [RadarController::class, 'create'])->name('radar.create');
 
 //Map markers
 Route::resource('/markers', MarkerController::class)
