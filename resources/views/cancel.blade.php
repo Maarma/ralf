@@ -14,8 +14,8 @@
                         </p>
                     </div>
                     <div class="my-4 mx-6">
-                    <a href="{{ route('records') }}"><x-secondary-button>Back to shopping</x-secondary-button></a>
-                </div>
+                        <a href="{{ route('records') }}"><x-secondary-button>Back to shopping</x-secondary-button></a>
+                    </div>
                 </div>
             </div>
         </div>

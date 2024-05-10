@@ -31,9 +31,9 @@
                         <p class="pb-4">Price: {{ $cartItem['price'] }} €</p>
                     </div>
                     <div class="text-right">
-                        <form action="{{ route('checkout.checkout') }}" method="POST">
+                        <form action="{{ route('removeFromCart', $index) }}" method="POST">
                             @csrf
-                            @method('DELETE')
+                            @method('POST')
                             <x-danger-button class="text-right" type="submit">X</x-danger-button>
                         </form>
                     </div>
@@ -56,7 +56,10 @@
         </div>
             @else
         <div>
-            <p>No items in cart</p>
+            <div class="my-4 mx-6">
+                <p class="my-2">No items in cart</p>
+                <a href="{{ route('records') }}"><x-secondary-button>Back to shopping</x-secondary-button></a>
+            </div>
         </div>
             @endif
     </div>
