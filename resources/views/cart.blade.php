@@ -44,7 +44,12 @@
                 <p class="m-4 font-bold">total sum: {{ $total }} €</p>
                 <div class="m-4 font-bold flex flex-row justify-between">
                     <a href="{{ route('records') }}"><x-secondary-button>Back to shopping</x-secondary-button></a>
-                    <x-primary-button id="checkout-button">Checkout</x-primary-button>
+                    <form action="{{ route('checkout.checkout') }}" method="POST">
+                        @csrf
+                        <x-primary-button type="submit">
+                            Checkout
+                        </x-primary-button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -56,35 +61,3 @@
             @endif
     </div>
 </x-app-layout>
-
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-    var stripe = Stripe('{{ env('STRIPE_KEY') }}');
-    var checkoutButton = document.getElementById('checkout-button');
-
-    checkoutButton.addEventListener('click', function() {
-        // Call your backend to create a checkout session and retrieve the session ID
-        fetch('/checkout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                total: 1000 // Replace with the total amount in cents
-            })
-        })
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(session) {
-            // Redirect to Stripe checkout
-            stripe.redirectToCheckout({
-                sessionId: session.id
-            }).then(function(result) {
-                // Handle any errors
-                console.error(result.error.message);
-            });
-        });
-    });
-</script>
