@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use App\Http\Middleware\CacheMiddleware;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,5 +96,8 @@ Route::middleware(['auth', 'verified'])->prefix('checkout')->name('checkout.')->
     Route::get('/success', [PaymentController::class, 'success'])->name('success');
     Route::get('/cancel', [PaymentController::class, 'cancel'])->name('cancel');
 });
+// Comment routes
+Route::post('/chirps/{chirp}/comments', [ChirpController::class, 'storeComment'])->name('chirps.comments.store');
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 require __DIR__.'/auth.php';

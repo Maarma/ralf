@@ -4,6 +4,11 @@
             {{ __('Records') }}
         </h2>
     </x-slot>
+    @if(session('success'))
+<div id="success-message" class="alert alert-success mx-10">
+    {{ session('success') }}
+</div>
+@endif
     <div class="product-container">
         @foreach ($products as $product)
             <div class="product-card">
@@ -74,5 +79,17 @@ label{
         var formAction = "{{ route('addToCart', ['product_id' => $product['product_id'], 'quantity' => ':amount']) }}";
         formAction = formAction.replace(':amount', amount);
         document.getElementById('addToCartForm').action = formAction;
+    });
+    // Wait for the DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select the success message element
+        var successMessage = document.getElementById('success-message');
+
+        // If the success message element exists, hide it after 2,5 seconds
+        if (successMessage) {
+            setTimeout(function() {
+                successMessage.style.display = 'none';
+            }, 2500); // 2500 milliseconds = 2,5 seconds
+        }
     });
 </script>

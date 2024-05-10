@@ -93,4 +93,18 @@ class ChirpController extends Controller
  
         return redirect(route('chirps.index'));
     }
+    public function storeComment(Request $request, Chirp $chirp): RedirectResponse
+    {
+        $validated = $request->validate([
+            'comment' => 'required|string|max:255',
+        ]);
+
+        $comment = new Comment();
+        $comment->comment = $validated['comment'];
+        $comment->user_id = $request->user()->id; // Assuming the comment is associated with the authenticated user
+        $comment->chirp_id = $chirp->id; // Assigning the chirp_id
+        $comment->save();
+
+        return back()->with('success', 'Comment posted successfully.');
+    }
 }
