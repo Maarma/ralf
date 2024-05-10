@@ -11,7 +11,8 @@
                 <img src="{{ $movie['image'] }}" alt="{{ $movie['title'] }}" class="product-image" width="400" height="400">
                 <div class="product-details">
                     <h2 class="product-name">{{ $movie['title'] }}</h2>
-                    <p class="product-author">Artist: {{ $movie['description'] }}</p>
+                    <p class="product-author">description: {{ $movie['description'] }}</p>
+                    <p class="product-author font-bold">Rating: {{ $movie['movie_rating'] }}</p>
                 </div>
             </div>
         @endforeach
