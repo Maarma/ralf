@@ -23,7 +23,7 @@
                             <p>
                                 Quantity:
                                 <x-text-input class="w-16" type="number" name="quantity" value="{{ $cartItem['quantity'] }}" min="1" max="99"/>
-                                <x-primary-button type="submit">Update</x-primary-button>
+                                <x-secondary-button type="submit">Update</x-secondary-button>
                             </p>
                         </form>
                     </div>
@@ -46,9 +46,9 @@
                     <a href="{{ route('records') }}"><x-secondary-button>Back to shopping</x-secondary-button></a>
                     <form action="{{ route('checkout.checkout') }}" method="POST">
                         @csrf
-                        <x-primary-button type="submit">
+                        <x-secondary-button type="submit">
                             Checkout
-                        </x-primary-button>
+                        </x-secondary-button>
                     </form>
                 </div>
             </div>

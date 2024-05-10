@@ -7,7 +7,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
-            <a href="{{ route('markers.create')}}"><x-primary-button>Add marker</x-primary-button></a>
+            <a href="{{ route('markers.create')}}"><x-secondary-button>Add marker</x-secondary-button></a>
         
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
@@ -24,7 +24,7 @@
         <!-- Add edit and delete buttons -->
         <div class="col-span-1">
         <div class="flex space-x-1">
-        <x-primary-button><a href="{{ route('markers.edit', $marker->id) }}">Edit</a></x-primary-button>
+        <x-secondary-button><a href="{{ route('markers.edit', $marker->id) }}">Edit</a></x-secondary-button>
         
         <form action="{{ route('markers.destroy', $marker->id) }}" method="POST">
             @csrf

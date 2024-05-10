@@ -41,7 +41,7 @@
                         />
                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         <div class="mt-4 space-x-2">
-                            <x-primary-button>{{ __('Save') }}</x-primary-button>
+                            <x-secondary-button>{{ __('Save') }}</x-secondary-button>
                             <x-danger-button><a href="{{ route('markers.index') }}">{{ __('Cancel') }}</a></x-danger-button>
                         </div>
                     </form>
