@@ -54,7 +54,7 @@ Route::get('/makeup', [RecordsController::class, 'makeup'])->name('makeup');
 Route::post('addToCart/{product_id}/{quantity}', [RecordsController::class, 'addToCart'])->name('addToCart');
 Route::get('cart', [RecordsController::class, 'showCart'])->name('cart');
 Route::patch('/updateCartItem/{index}', [RecordsController::class, 'updateCartItem'])->name('updateCartItem');
-Route::delete('/removeFromCart/{index}', [RecordsController::class, 'removeFromCart'])->name('removeFromCart');
+Route::post('/removeFromCart/{index}', [RecordsController::class, 'removeFromCart'])->name('removeFromCart');
 
 
 //Google map
