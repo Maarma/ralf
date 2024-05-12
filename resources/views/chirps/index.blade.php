@@ -18,7 +18,7 @@
                             class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                         >{{ old('message') }}</textarea>
                         <x-input-error :messages="$errors->get('message')" class="mt-2" />
-                        <x-secondary-button class="mt-4">{{ __('Chirp') }}</x-secondary-button>
+                        <x-secondary-button  type="submit" class="mt-4">{{ __('Chirp') }}</x-secondary-button>
                     </form>
                     <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
                         @foreach ($chirps as $chirp)
@@ -115,7 +115,7 @@
                                     <div class="mt-2">
                                         <input type="text" name="comment" class="border-gray-300 rounded-md w-full" placeholder="Add a comment...">
                                         <div class="flex justify-end">
-                                            <x-secondary-button class="mt-2">{{ __('Comment') }}</x-secondary-button>
+                                            <x-secondary-button type="submit" class="mt-2">{{ __('Comment') }}</x-secondary-button>
                                         </div>
                                     </div>
                                 </form>
