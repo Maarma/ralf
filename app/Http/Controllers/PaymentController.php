@@ -34,11 +34,9 @@ class PaymentController extends Controller
             // Apply discount based on coupon rules
             // For example, you might have a fixed discount amount or a percentage discount
             // Adjust the total amount accordingly
-            if ($coupon['type'] === 'fixed') {
-                $discountAmount = $coupon['amount'];
-            } elseif ($coupon['type'] === 'percentage') {
-                $discountAmount = ($coupon['amount'] / 100) * $total;
-            }
+            
+            $discountAmount = $coupon['discount'];
+            
         }
     
         // Calculate the final amount after applying the discount
@@ -65,11 +63,11 @@ class PaymentController extends Controller
             'mode' => 'payment',
             'success_url' => route('checkout.success'),
             'cancel_url' => route('checkout.cancel'),
-            'payment_intent_data' => [
+            /*'payment_intent_data' => [
                 'amount' => $finalTotal * 100, // Amount in cents
                 'currency' => 'eur',
                 'description' => 'Payment for products',
-            ],
+            ],*/
         ]);
     
         return redirect()->to($checkout_session->url);

@@ -123,7 +123,7 @@ public function addToCart(Request $request)
 
 public function showCart()
 {
-    //session()->forget('coupon');
+    session()->forget('coupon');
     $cartItems = session('cart', []);
 
     $total = 0;
@@ -163,12 +163,19 @@ public function removeFromCart($index)
         // Redirect back or wherever you want after removing from cart
         return redirect()->back()->with('success', 'Item removed from cart successfully.');
     }
-    public function updateCartItem(Request $request, $index)
+
+public function updateCartItem(Request $request, $index)
 {
     $quantity = $request->input('quantity');
 
     // Get current cart items from session
     $cartItems = session()->get('cart', []);
+
+    // Check if the item being updated is a coupon
+    if ($cartItems[$index]['name'] === 'coupon' && $quantity > 1) {
+        // If the item is a coupon, limit the quantity to 1
+        $quantity = 1;
+    }
 
     // Update the quantity of the item at the specified index
     if (isset($cartItems[$index])) {
@@ -179,16 +186,26 @@ public function removeFromCart($index)
     // Redirect back to the cart page
     return redirect()->route('cart')->with('success', 'Cart item updated successfully.');
 }
+
 public function applyCoupon(Request $request)
 {
+
     $couponCode = $request->input('coupon_code');
     $coupon = Coupon::where('code', $couponCode)->first();
+    $cartItems = session()->get('cart', []);
 
     if ($coupon) {
         // Apply the discount based on coupon rules
         // Adjust the total amount
         session()->put('coupon', $coupon);
     }
+    $cartItems[] = [
+        'product_id' => 'coupon',
+        'name' => 'coupon',
+        'quantity' => 1,
+        'price' => $coupon['discount'] * -1
+    ];
+    session()->put('cart', $cartItems);
 
     return redirect()->back()->with('success', 'Coupon applied successfully.');
 }
