@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Records;
+use App\Models\Coupon;
 use App\Models\Cart;
 use PhpParser\Node\Stmt\Return_;
 use Illuminate\Support\Facades\Http;
 use Ramsey\Uuid\Type\Integer;
+use Stripe\Discount;
 
 class RecordsController extends Controller
 {
@@ -121,9 +123,18 @@ public function addToCart(Request $request)
 
 public function showCart()
 {
+    
     $cartItems = session('cart', []);
 
     $total = 0;
+    // Apply coupon discount if present
+    $coupon = session('coupon');
+    //dd($coupon->discount);
+    if ($coupon) {
+        $total -= $coupon->discount;// Calculate discount based on coupon rules;
+    }
+
+    // Process payment
 
     foreach ($cartItems as $item) {
         // Cast price and quantity to float to ensure numeric values
@@ -168,4 +179,20 @@ public function removeFromCart($index)
     // Redirect back to the cart page
     return redirect()->route('cart')->with('success', 'Cart item updated successfully.');
 }
+public function applyCoupon(Request $request)
+{
+    $couponCode = $request->input('coupon_code');
+    $coupon = Coupon::where('code', $couponCode)->first();
+
+    if ($coupon) {
+        // Apply the discount based on coupon rules
+        // Adjust the total amount
+        session()->put('coupon', $coupon);
+    }
+
+    return redirect()->back()->with('success', 'Coupon applied successfully.');
+}
+
+
+
 }

@@ -11,13 +11,13 @@
             @section('content')
             <h1 class="m-4 font-bold">Shopping Cart</h1>
             <div class="cart">
-                <div>
-                    @if(session()->has('cart') && count(session('cart')) > 0)
-                    <div class="cart-item grid grid-row grid-cols-4 m-4 h-12 items-center">
-                        @foreach(session('cart') as $index => $cartItem)
-                        <div>
-                            <h2 class="pb-4">{{ $cartItem['name'] }}</h2>
-                        </div>
+
+                @if(session()->has('cart') && count(session('cart')) > 0)
+                <div class="cart-item grid grid-row grid-cols-4 m-4 h-12 items-center">
+                    @foreach(session('cart') as $index => $cartItem)
+                    <div>
+                        <h2 class="pb-4">{{ $cartItem['name'] }}</h2>
+                    </div>
                         <div>
                             <form action="{{ route('updateCartItem', $index) }}" method="POST">
                                 @csrf
@@ -41,8 +41,17 @@
                         </div>
                         @endforeach
                     </div>
-                </div>
+                
+            </div>
                 <div class="pt-16">
+                    <div class="p-4">
+                    <form action="/apply-coupon" method="POST">
+                        @csrf
+                        
+                        <x-text-input type="text" name="coupon_code"/>
+                        <x-secondary-button type="submit">Apply Coupon</x-secondary-button>
+                    </form>
+                    </div>
                     <p class="m-4 font-bold">total sum: {{ $total }} €</p>
                     <div class="m-4 font-bold flex flex-row justify-between">
                         <a href="{{ route('records') }}">
@@ -56,7 +65,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            
         </div>
             @else
         <div>

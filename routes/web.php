@@ -99,5 +99,8 @@ Route::middleware(['auth', 'verified'])->prefix('checkout')->name('checkout.')->
 // Comment routes
 Route::post('/chirps/{chirp}/comments', [ChirpController::class, 'storeComment'])->name('chirps.comments.store');
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+//coumpons
+Route::get('/coupons', [RecordsController::class, 'coupons']);
+Route::post('/apply-coupon', [RecordsController::class, 'applyCoupon']);
 
 require __DIR__.'/auth.php';
