@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Makeup') }}
@@ -10,12 +11,17 @@
             <div class="product-card">
                 <img src="{{ $product['image'] }}" alt="{{ $product['title'] }}" class="product-image" width="400" height="400">
                 <div class="product-details">
-                    <h2 class="product-name">{{ $product['title'] }}</h2>
-                    <p class="product-author">Artist: {{ $product['description'] }}</p>
+                    <h2 class="product-name">
+                        {{ $product['title'] }}
+                    </h2>
+                    <p class="product-author">
+                        Artist: {{ $product['description'] }}
+                    </p>
                 </div>
             </div>
         @endforeach
     </div>
+    
 </x-app-layout>
 
 <style>

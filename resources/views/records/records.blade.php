@@ -1,13 +1,15 @@
 <x-app-layout>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Records') }}
         </h2>
     </x-slot>
+
     @if(session('success'))
-<div id="success-message" class="alert alert-success mx-10">
-    {{ session('success') }}
-</div>
+    <div id="success-message" class="alert alert-success mx-10">
+        {{ session('success') }}
+    </div>
 @endif
     <div class="product-container">
         @foreach ($products as $product)
@@ -21,14 +23,19 @@
                     <form action="{{ route('addToCart', ['product_id' => $product['product_id'], 'quantity' => ':amount']) }}" method="POST">
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $product['product_id'] }}">
-                        <label for="amount">Select amount:</label>
+                        <label for="amount">
+                            Select amount:
+                        </label>
                         <input type="number" id="amount" name="amount" min="1" max="99" value="1" />
-                        <x-secondary-button type="submit">Add to Cart</x-secondary-button>
+                        <x-secondary-button type="submit">
+                            Add to Cart
+                        </x-secondary-button>
                     </form>
                 </div>
             </div>
         @endforeach
     </div>
+
 </x-app-layout>
 
 <style>

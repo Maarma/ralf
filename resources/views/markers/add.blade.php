@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Add Marker') }}
@@ -14,39 +15,49 @@
                         @method('post')
                         <x-input-label for="title" value="Title" />
                         <x-text-input
-                        value=""
+                            value=""
                             name="title"
                             class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                         />
                         <x-input-error :messages="$errors->get('title')" class="mt-2" />
-                            <x-input-label for="lat" value="Latitude" />
+
+                        <x-input-label for="lat" value="Latitude" />
                         <x-text-input
-                        value=""
+                            value=""
                             name="lat"
                             class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                         />
                         <x-input-error :messages="$errors->get('lat')" class="mt-2" />
-                            <x-input-label for="lng" value="Longitude" />
+
+                        <x-input-label for="lng" value="Longitude" />
                         <x-text-input
-                        value=""
+                            value=""
                             name="lng"
                             class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                         />
                         <x-input-error :messages="$errors->get('lng')" class="mt-2" />
-                            <x-input-label for="description" value="Description" />
+
+                        <x-input-label for="description" value="Description" />
                         <x-text-input
-                        value=""
+                            value=""
                             name="description"
                             class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                         />
                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         <div class="mt-4 space-x-2">
-                            <x-secondary-button type="submit">{{ __('Save') }}</x-secondary-button>
-                            <x-danger-button><a href="{{ route('markers.index') }}">{{ __('Cancel') }}</a></x-danger-button>
+                            <x-secondary-button type="submit">
+                                {{ __('Save') }}
+                            </x-secondary-button>
+                            <x-danger-button>
+                                <a href="{{ route('markers.index') }}">
+                                    {{ __('Cancel') }}
+                                </a>
+                            </x-danger-button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
 </x-app-layout>
