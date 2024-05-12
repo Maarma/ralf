@@ -17,6 +17,7 @@ class PaymentController extends Controller
     }
 
     public function checkout(Request $request){
+        \Stripe\Stripe::setApiKey(Config::get('services.stripe.secret'));
         // Retrieve cart items from session
         $cart = Session::get('cart', []);
     
