@@ -123,7 +123,7 @@ public function addToCart(Request $request)
 
 public function showCart()
 {
-    
+    //session()->forget('coupon');
     $cartItems = session('cart', []);
 
     $total = 0;
