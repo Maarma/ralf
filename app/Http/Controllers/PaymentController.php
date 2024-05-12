@@ -17,37 +17,65 @@ class PaymentController extends Controller
     }
 
     public function checkout(Request $request){
-
-        \Stripe\Stripe::setApiKey(Config::get('services.stripe.secret'));
-
+        // Retrieve cart items from session
         $cart = Session::get('cart', []);
+    
+        // Calculate total amount
+        $total = 0;
+        foreach ($cart as $cartItem) {
+            $total += $cartItem['price'] * $cartItem['quantity'];
+        }
+    
+        // Apply discount if available
+        $discountAmount = 0;
+        $coupon = Session::get('coupon');
+        if ($coupon) {
+            // Apply discount based on coupon rules
+            // For example, you might have a fixed discount amount or a percentage discount
+            // Adjust the total amount accordingly
+            if ($coupon['type'] === 'fixed') {
+                $discountAmount = $coupon['amount'];
+            } elseif ($coupon['type'] === 'percentage') {
+                $discountAmount = ($coupon['amount'] / 100) * $total;
+            }
+        }
+    
+        // Calculate the final amount after applying the discount
+        $finalTotal = $total - $discountAmount;
+    
+        // Create line items for Stripe checkout
         $lineItems = [];
-
-        foreach ($cart as $cartItems) {
+        foreach ($cart as $cartItem) {
             $lineItems[] = [
                 'price_data' => [
                     'currency' => 'EUR',
-                    'unit_amount' => $cartItems['price'] * 100,
+                    'unit_amount' => $cartItem['price'] * 100,
                     'product_data' => [
-                        'name' => $cartItems['name']
+                        'name' => $cartItem['name']
                     ]
                 ],
-                'quantity' => $cartItems['quantity'],
+                'quantity' => $cartItem['quantity'],
             ];
         }
-
+    
+        // Create Stripe checkout session with adjusted total
         $checkout_session = \Stripe\Checkout\Session::create([
-        'line_items' => $lineItems,
-        'mode' => 'payment',
-        'success_url' => route('checkout.success'),
-        'cancel_url' => route('checkout.cancel'),
+            'line_items' => $lineItems,
+            'mode' => 'payment',
+            'success_url' => route('checkout.success'),
+            'cancel_url' => route('checkout.cancel'),
+            'payment_intent_data' => [
+                'amount' => $finalTotal * 100, // Amount in cents
+                'currency' => 'eur',
+                'description' => 'Payment for products',
+            ],
         ]);
-
-        return Redirect::to($checkout_session->url);
+    
+        return redirect()->to($checkout_session->url);
     }
-
     public function success(Request $request)
     {
+        Session::forget('coupon');
         Session::forget('cart');
         return view('success');
     }
