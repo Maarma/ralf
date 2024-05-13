@@ -7,13 +7,12 @@ use Illuminate\Http\RedirectResponse;
 
 class CommentController extends Controller
 {
-    /**
-     * Remove the specified comment from storage.
-     */
+   
     public function destroy(Comment $comment): RedirectResponse
     {
         $comment->delete();
 
         return back()->with('success', 'Comment deleted successfully.');
     }
+    
 }

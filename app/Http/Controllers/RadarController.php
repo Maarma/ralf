@@ -11,30 +11,25 @@ use Ramsey\Uuid\Type\Integer;
 
 class RadarController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index(): View
     {
         $markers = Boxmap::all();
+
         return view('radar.index', compact('markers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Request $request)
     {
         Boxmap::create($request->all());
+
         return redirect()->route('radar.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
+        $validated = $request->validate(
+        [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'latitude' => 'required',
@@ -46,22 +41,17 @@ class RadarController extends Controller
         return redirect(route('radar.index'));
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show()
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Boxmap $marker): View
     {
         $this->authorize('update', $marker);
  
-        return view('markers.edit', [
+        return view('markers.edit', 
+        [
             'marker' => $marker,
         ]);
     }
@@ -69,7 +59,6 @@ class RadarController extends Controller
     public function destroy(Boxmap $marker): RedirectResponse
     {
         $this->authorize('delete', $marker);
- 
         $marker->delete();
  
         return redirect(route('markers.index'));
@@ -79,7 +68,8 @@ class RadarController extends Controller
     {
         $this->authorize('update', $marker);
  
-        $validated = $request->validate([
+        $validated = $request->validate(
+        [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'latitude' => 'required',

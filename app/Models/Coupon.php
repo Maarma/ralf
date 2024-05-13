@@ -9,5 +9,4 @@ class Coupon extends Model
 {
     protected $table = 'coupons';
     protected $fillable = ['code','discount'];
-
 }
