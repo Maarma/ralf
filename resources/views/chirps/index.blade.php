@@ -37,7 +37,7 @@
                                             {{ $chirp->created_at->setTimezone('Europe/Tallinn')->format('Y-m-d H:i:s') }}
                                         </small>
                                         @unless ($chirp->created_at->eq($chirp->updated_at))
-                                            <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
+                                        <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
                                         @endunless
                                     </div>
                                     @if ($chirp->user->is(auth()->user()))

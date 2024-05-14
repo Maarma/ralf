@@ -18,7 +18,7 @@
                     </p>
                 </div>
                 <div class="m-6">
-                    <p>Please use Your personal discound code:</p>
+                    <p>Please use Your personal discount code:</p>
                     <p class="font-bold">ten pesos</p>
                     <p>to get 10€ off from orders</p>
                 </div>
