@@ -114,13 +114,12 @@ class RecordsController extends Controller
 
     public function showCart()
     {
-        session()->forget('coupon');
+        //session()->forget('coupon');
         $cartItems = session('cart', []);
 
         $total = 0;
-        // Apply coupon discount if present
         $coupon = session('coupon');
-        //dd($coupon->discount);
+        //dd($coupon->coupon_id);
         if ($coupon)
         {
             $total -= $coupon->discount;// Calculate discount based on coupon rules;
@@ -178,15 +177,16 @@ class RecordsController extends Controller
         {
             session()->put('coupon', $coupon);
         }
-        $cartItems[] = [
-            'product_id' => 'coupon',
-            'name' => 'coupon',
-            'quantity' => 1,
-            'price' => 0
-        ];
+        
         session()->put('cart', $cartItems);
 
         return redirect()->back()->with('success', 'Coupon applied successfully.');
 }
+public function removeCoupon()
+        {
+            session()->forget('coupon');
+
+            return redirect()->back()->with('success', 'Coupon removed successfully.');
+        }
 
 }

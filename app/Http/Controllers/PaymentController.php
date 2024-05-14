@@ -23,17 +23,11 @@ class PaymentController extends Controller
     
         // Calculate total amount
         $total = 0;
-        $coupon = session('coupon');
-        //dd($coupon->discount);
         
         foreach ($cart as $cartItem) {
             $total += $cartItem['price'] * $cartItem['quantity'];
         }
-        if ($coupon)
-        {
-            $total -= $coupon->discount;// Calculate discount based on coupon rules;
-        }
-        
+
         // Create line items for Stripe checkout
         $lineItems = [];
         foreach ($cart as $cartItem) {
@@ -48,7 +42,18 @@ class PaymentController extends Controller
                 'quantity' => $cartItem['quantity'],
             ];
         }
-
+        $coupon = session('coupon');
+        if ($coupon){
+            $checkout_session = \Stripe\Checkout\Session::create([
+                'line_items' => $lineItems,
+                'discounts' => [['coupon' => $coupon->coupon_id]],
+                'mode' => 'payment',
+                'success_url' => route('checkout.success'),
+                'cancel_url' => route('checkout.cancel'),
+            ]);
+        }
+        else
+        {
         // Create Stripe checkout session with adjusted total
         $checkout_session = \Stripe\Checkout\Session::create([
             'line_items' => $lineItems,
@@ -56,7 +61,7 @@ class PaymentController extends Controller
             'success_url' => route('checkout.success'),
             'cancel_url' => route('checkout.cancel'),
         ]);
-    
+        }
         return redirect()->to($checkout_session->url);
     }
 

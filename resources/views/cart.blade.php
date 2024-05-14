@@ -40,9 +40,33 @@
                             </form>
                         </div>
                         @endforeach
+                        @if(session()->has('coupon'))
+                            @php
+                                $coupon = session('coupon');
+                            @endphp
+                            <div>
+                                <h2 class="pb-4">{{ $coupon['code'] }}</h2>
+                            </div>
+                            <div>
+                                <p>
+                                    Quantity: 1
+                                </p>
+                            </div>
+                            <div>
+                                <p class="text-center">
+                                    Discount: {{$coupon['discount']}} €
+                                </p>
+                            </div>
+                            <div class="text-right">
+                                <form action="{{ route('removeCoupon') }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                    <x-danger-button class="text-right" type="submit">X</x-danger-button>
+                                </form>
+                            </div>
+                        @endif
                     </div>
-                
-            </div>
+                </div>
                 <div class="pt-16">
                     <div class="p-4">
                     <form action="/apply-coupon" method="POST">
@@ -64,8 +88,7 @@
                             </x-secondary-button>
                         </form>
                     </div>
-                </div>
-            
+                </div>        
         </div>
             @else
         <div>

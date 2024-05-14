@@ -102,5 +102,6 @@ Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->nam
 //coumpons
 Route::get('/coupons', [RecordsController::class, 'coupons']);
 Route::post('/apply-coupon', [RecordsController::class, 'applyCoupon']);
+Route::post('/removeCoupon/', [RecordsController::class, 'removecoupon'])->name('removeCoupon');
 
 require __DIR__.'/auth.php';
