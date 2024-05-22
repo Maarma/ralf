@@ -30,14 +30,14 @@
                 />
                 <x-input-error :messages="$errors->get('title')" class="mt-2" />
                 <x-input-label for="lat" value="Latitude" />
-                <x-text-input id="lat"
+                <x-text-input id="lat" readonly
                     value=""
                     name="lat"
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                 />
                 <x-input-error :messages="$errors->get('lat')" class="mt-2" />
                 <x-input-label for="lng" value="Longitude" />
-                <x-text-input id="lng"
+                <x-text-input id="lng" readonly
                     value=""
                     name="lng"
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"

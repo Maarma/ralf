@@ -34,13 +34,19 @@ class RadarController extends Controller
         [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'latitude' => 'required|numeric|between:-90,90',
-            'longitude' => 'required|numeric|between:-180,180'
+            'latitude' => [
+                'required',
+                'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'
+            ],
+            'longitude' => [
+                'required',
+                'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'
+            ]
         ]);
- 
+    
         $request->user()->markers()->create($validated);
- 
-        return redirect(route('radar.index'));
+    
+        return redirect()->route('radar.index');        
     }
 
     public function show()
