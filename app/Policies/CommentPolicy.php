@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ChirpPolicy
+class CommentpPolicy
 {
     use HandlesAuthorization;
     /**

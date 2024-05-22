@@ -40,4 +40,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'radar' => [
+        'key' => env('RADAR_KEY')
+    ],
+
 ];

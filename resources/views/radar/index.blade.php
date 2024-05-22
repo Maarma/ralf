@@ -56,10 +56,13 @@
             </div>
         </div>
     </div>
+
 </x-app-layout>
 
 <script type="text/javascript">
-    Radar.initialize('prj_live_pk_d48531f2f7b0cb891191f7819fd060199596063d');
+
+    const appKey = {!! json_encode($apiKey) !!}
+    Radar.initialize(appKey);
 
     // create a map
     const map = Radar.ui.map({

@@ -8,15 +8,17 @@ use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Ramsey\Uuid\Type\Integer;
+use Illuminate\Support\Facades\Config; 
 
 class RadarController extends Controller
 {
     
     public function index(): View
     {
+        $apiKey = Config::get('services.radar.key');
         $markers = Boxmap::all();
 
-        return view('radar.index', compact('markers'));
+        return view('radar.index', compact('markers', 'apiKey'));
     }
 
     public function create(Request $request)
