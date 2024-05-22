@@ -7,6 +7,7 @@
     </x-slot>
 
     <div>
+        <p class="flex justify-center">double click to add marker</p>
         <link href="https://js.radar.com/v4.1.18/radar.css" rel="stylesheet">
         <script src="https://js.radar.com/v4.1.18/radar.min.js"></script>
         <div id="map" style="width: 100%; height: 500px;" />
@@ -80,7 +81,7 @@ markers.forEach(markerInfo => {
         .addTo(map);
 });
 
-map.on('click', function(e) {
+map.on('dblclick', function(e) {
     // Retrieve coordinates
     var clickedLatLng = e.lngLat;
         var lat = clickedLatLng.lat;

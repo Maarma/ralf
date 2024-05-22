@@ -34,8 +34,8 @@ class RadarController extends Controller
         [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'latitude' => 'required',
-            'longitude' => 'required',
+            'latitude' => 'required|numeric|between:-90,90',
+            'longitude' => 'required|numeric|between:-180,180'
         ]);
  
         $request->user()->markers()->create($validated);
